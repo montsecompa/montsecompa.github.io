@@ -14,7 +14,7 @@ It is a static site with no framework, hosted on GitHub Pages.
 
 ## Update it
 
-**A new publication, project, talk, grant or student:** add a row to the matching array in `data.js` and commit. No rebuild is needed. Publication and talk titles stay in the language they were published in, so they are written once.
+**A new publication, project, talk, grant or student:** add a row to the matching array in `data.js`, run `python3 build.py`, and commit. Publication and talk titles stay in the language they were published in, so they are written once.
 
 | What | Array |
 |---|---|
@@ -25,4 +25,4 @@ It is a static site with no framework, hosted on GitHub Pages.
 | Conference presentations | `TALKS` (year, title, venue, format, `i` international / `n` national) |
 | Home-page numbers | `FACTS` |
 
-**Page text (biography, career timeline, education, contact…):** edit it in `build.py` for each language, then run `python3 build.py` and commit everything.
+**Page text (biography, career timeline, education, contact…):** edit it in `build.py` for each language, then run `python3 build.py` and commit everything. Also rerun it after changing `data.js`, `site.js` or `style.css`, so visitors' browsers pick up the new files straight away.

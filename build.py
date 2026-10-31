@@ -301,6 +301,12 @@ for l in ("es", "ca"):
     T[l]["chapters_list"] = T["en"]["chapters_list"]
     T[l]["reports_list"] = T["en"]["reports_list"]
 
+import hashlib
+def ver(name):
+    """Short content hash so browsers fetch a file again whenever it changes."""
+    with open(os.path.join(HERE, name), "rb") as f:
+        return hashlib.sha1(f.read()).hexdigest()[:8]
+
 SVG = open(os.path.join(HERE, "assets", "sea.svg"), encoding="utf-8").read()
 
 
@@ -493,7 +499,7 @@ def page(key, l):
         nxt = (f'<section class="next"><div class="wrap"><a href="{PAGES[idx+1][0]}.html">{t["next"]}: {t["title"][PAGES[idx+1][0]]}</a></div></section>'
                if idx + 1 < len(PAGES) else f'<section class="next"><div class="wrap"><a href="index.html">{t["back"]}</a></div></section>')
     needs_data = key in ("index", "research", "publications", "funding", "career", "talks")
-    data = f'<script src="{up}data.js"></script>\n' if needs_data else '<script>const THEMES={},OTHER={},PUBS=[],FACTS=[];</script>\n'
+    data = f'<script src="{up}data.js?v={ver('data.js')}"></script>\n' if needs_data else '<script>const THEMES={},OTHER={},PUBS=[],FACTS=[];</script>\n'
     # On the English home page, send returning visitors to the language they chose before
     redirect = ""
     if key == "index" and l == "en":
@@ -510,7 +516,7 @@ def page(key, l):
 {alts}<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{up}style.css">
+<link rel="stylesheet" href="{up}style.css?v={ver('style.css')}">
 {redirect}<script>try{{var t=localStorage.getItem("mc-theme");if(t)document.documentElement.dataset.theme=t}}catch(e){{}}</script>
 </head>
 <body>
@@ -536,7 +542,7 @@ def page(key, l):
     <span class="fl"><a href="mailto:{EMAIL}">{t["email"]}</a><a href="{ORCID}">ORCID</a><button class="theme-btn" id="themebtn">{t["theme"]}</button></span>
   </div>
 </footer>
-{data}<script src="{up}site.js"></script>
+{data}<script src="{up}site.js?v={ver('site.js')}"></script>
 </body>
 </html>
 '''
