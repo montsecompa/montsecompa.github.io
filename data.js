@@ -1,16 +1,108 @@
+// Site data. Text with {en, es, ca} is shown in the page's language.
+// Publication and talk titles stay in the language they were published in.
+
 const THEMES = {
-  litter:  {name:"Marine litter in MPAs and coastal seas", color:"#3D7EA6",
-            text:"Where litter accumulates and why. Surface trawls, beach and seafloor surveys in Cabrera National Park and around the Balearic Islands, aquaculture zones, and an 11-year dataset from sea-cleaning boats."},
-  ingest:  {name:"Microplastic ingestion and its effects", color:"#2C5C4D",
-            text:"Which species eat plastic and what it does to them. Field studies on sardine, anchovy, sharks and benthic fish, and feeding experiments on gilthead sea bream and mussels measuring oxidative stress, inflammation and pollutant transfer."},
-  risk:    {name:"Risk assessment and modelling", color:"#7A5BA6",
-            text:"Mapping exposure and threat. Basin-wide risk assessments of plastic for Mediterranean biodiversity, 3D litter hotspots, remote sensing of marine litter, and meta-analyses of biomarkers and copepods."},
-  invasive:{name:"Invasive species and cumulative pressures", color:"#C2862B",
-            text:"Newer work on how multiple stressors combine. The invasive blue crab and recreational fishing as a control tool, heavy metals, invasive algae, marine heatwaves, and sponges as sentinels."}
+  litter:  {color:"#3D7EA6",
+    name:{en:"Marine litter in MPAs and coastal seas", es:"Basura marina en AMP y mares costeros", ca:"Fems marins en AMP i mars costaneres"},
+    short:{en:"Marine litter", es:"Basura marina", ca:"Fems marins"},
+    text:{en:"Where litter accumulates and why. Surface trawls, beach and seafloor surveys in Cabrera National Park and around the Balearic Islands, aquaculture zones, and an 11-year dataset from sea-cleaning boats.",
+          es:"Dónde se acumula la basura y por qué. Arrastres de superficie, muestreos de playas y fondos en el Parque Nacional de Cabrera y alrededor de las Baleares, zonas de acuicultura y una serie de 11 años de las embarcaciones de limpieza del litoral.",
+          ca:"On s'acumulen els fems i per què. Arrossegaments de superfície, mostrejos de platges i fons al Parc Nacional de Cabrera i a l'entorn de les Balears, zones d'aqüicultura i una sèrie d'11 anys de les embarcacions de neteja del litoral."}},
+  ingest:  {color:"#2C5C4D",
+    name:{en:"Microplastic ingestion and its effects", es:"Ingestión de microplásticos y sus efectos", ca:"Ingestió de microplàstics i els seus efectes"},
+    short:{en:"Microplastic ingestion", es:"Ingestión de microplásticos", ca:"Ingestió de microplàstics"},
+    text:{en:"Which species eat plastic and what it does to them. Field studies on sardine, anchovy, sharks and benthic fish, and feeding experiments on gilthead sea bream and mussels measuring oxidative stress, inflammation and pollutant transfer.",
+          es:"Qué especies ingieren plástico y qué efecto tiene en ellas. Estudios de campo en sardina, boquerón, tiburones y peces bentónicos, y experimentos de alimentación con dorada y mejillón que miden estrés oxidativo, inflamación y transferencia de contaminantes.",
+          ca:"Quines espècies ingereixen plàstic i quin efecte els fa. Estudis de camp en sardina, anxova, taurons i peixos bentònics, i experiments d'alimentació amb orada i musclo que mesuren l'estrès oxidatiu, la inflamació i la transferència de contaminants."}},
+  risk:    {color:"#7A5BA6",
+    name:{en:"Risk assessment and modelling", es:"Evaluación de riesgos y modelización", ca:"Avaluació de riscos i modelització"},
+    short:{en:"Risk assessment", es:"Evaluación de riesgos", ca:"Avaluació de riscos"},
+    text:{en:"Mapping exposure and threat. Basin-wide risk assessments of plastic for Mediterranean biodiversity, 3D litter hotspots, remote sensing of marine litter, and meta-analyses of biomarkers and copepods.",
+          es:"Cartografiar la exposición y la amenaza. Evaluaciones de riesgo del plástico para la biodiversidad de todo el Mediterráneo, puntos calientes de basura en 3D, teledetección de basura marina y metaanálisis de biomarcadores y copépodos.",
+          ca:"Cartografiar l'exposició i l'amenaça. Avaluacions de risc del plàstic per a la biodiversitat de tot el Mediterrani, punts calents de fems en 3D, teledetecció de fems marins i metaanàlisis de biomarcadors i copèpodes."}},
+  invasive:{color:"#C2862B",
+    name:{en:"Invasive species and cumulative pressures", es:"Especies invasoras y presiones acumuladas", ca:"Espècies invasores i pressions acumulades"},
+    short:{en:"Invasive species", es:"Especies invasoras", ca:"Espècies invasores"},
+    text:{en:"Newer work on how multiple stressors combine. The invasive blue crab and recreational fishing as a control tool, heavy metals, invasive algae, marine heatwaves, and sponges as sentinels.",
+          es:"Trabajo más reciente sobre cómo se combinan varios factores de estrés. El cangrejo azul invasor y la pesca recreativa como herramienta de control, metales pesados, algas invasoras, olas de calor marinas y esponjas como centinelas.",
+          ca:"Feina més recent sobre com es combinen diversos factors d'estrès. El cranc blau invasor i la pesca recreativa com a eina de control, metalls pesants, algues invasores, onades de calor marines i esponges com a sentinelles."}}
 };
-// role: f = first author, l = last author
+const OTHER = {color:"#8A9AA0", name:{en:"Other collaborations", es:"Otras colaboraciones", ca:"Altres col·laboracions"}, short:{en:"Other", es:"Otros", ca:"Altres"}};
+
+// [years, project name, funder and leader, led by me?, budget]
+const FUND = [
+ ["2025–28",{en:"PlasticFlow: assessing the flow of microplastic pollution across marine ecosystems, sources and reservoirs",es:"PlasticFlow: evaluación del flujo de la contaminación por microplásticos en los ecosistemas marinos, fuentes y reservorios",ca:"PlasticFlow: avaluació del flux de la contaminació per microplàstics als ecosistemes marins, fonts i reservoris"},
+  {en:"Spanish State Research Plan (PID2023-152980OB-I00). PI: Salud Deudero",es:"Plan Estatal de Investigación (PID2023-152980OB-I00). IP: Salud Deudero",ca:"Pla Estatal de Recerca (PID2023-152980OB-I00). IP: Salud Deudero"},false,""],
+ ["2025–27",{en:"Teaching biodiversity from an interdisciplinary and innovative perspective at the start of the Biology degree",es:"Enseñar la biodiversidad desde una perspectiva interdisciplinar e innovadora al inicio del grado de Biología",ca:"Ensenyar la biodiversitat sota una perspectiva interdisciplinària i innovadora al començament del grau de Biologia"},
+  {en:"UIB teaching innovation project (PID252708). PIs: Miquel Capó, Andreu Rotger",es:"Proyecto de innovación docente UIB (PID252708). IP: Miquel Capó, Andreu Rotger",ca:"Projecte d'innovació docent UIB (PID252708). IP: Miquel Capó, Andreu Rotger"},false,""],
+ ["2024–27",{en:"Paediatric cancer risk in small areas: an approach using electronic health records",es:"Riesgo de cáncer pediátrico en áreas pequeñas: un enfoque basado en registros de la historia clínica informatizada",ca:"Risc de càncer pediàtric en àrees petites: un enfocament basat en registres de la història clínica informatitzada"},
+  {en:"PROSALUT2023-17. PIs: Mauricio Ruiz Pérez, Diego De Sotto Esteban",es:"PROSALUT2023-17. IP: Mauricio Ruiz Pérez, Diego De Sotto Esteban",ca:"PROSALUT2023-17. IP: Mauricio Ruiz Pérez, Diego De Sotto Esteban"},false,"119,872 €"],
+ ["2024–25",{en:"MARHEAT: monitoring the effects of marine heatwaves on benthic diversity in the Balearic Islands",es:"MARHEAT: seguimiento de los efectos de las olas de calor marinas sobre la diversidad bentónica en las Baleares",ca:"MARHEAT: seguiment dels efectes de les onades de calor marines sobre la diversitat bentònica a les Balears"},
+  {en:"Iberostar Foundation / FUEIB, University of the Balearic Islands",es:"Fundación Iberostar / FUEIB, Universitat de les Illes Balears",ca:"Fundació Iberostar / FUEIB, Universitat de les Illes Balears"},true,"12,000 €"],
+ ["2024–25",{en:"SOCAP: monitoring marine heatwave impacts through the pathogen Vibrio spp.",es:"SOCAP: seguimiento del impacto de las olas de calor marinas mediante el patógeno Vibrio spp.",ca:"SOCAP: seguiment de l'impacte de les onades de calor marines per mitjà del patogen Vibrio spp."},
+  {en:"Menorca Biosphere Reserve",es:"Reserva de Biosfera de Menorca",ca:"Reserva de Biosfera de Menorca"},true,"5,000 €"],
+ ["2023–24",{en:"The impacts of marine heatwaves on marine sponges: an ecological and biomarker evaluation",es:"Los impactos de las olas de calor marinas en las esponjas: una evaluación ecológica y de biomarcadores",ca:"Els impactes de les onades de calor marines en les esponges: una avaluació ecològica i de biomarcadors"},
+  {en:"Institut Menorquí d'Estudis (I0015-2023-000004)",es:"Institut Menorquí d'Estudis (I0015-2023-000004)",ca:"Institut Menorquí d'Estudis (I0015-2023-000004)"},true,"4,179 €"],
+ ["2024–25",{en:"BIOPRO2024-004: distribution and impact of the invasive alga Batophora occidentalis in S'Estany des Peix (Formentera)",es:"BIOPRO2024-004: distribución e impacto del alga invasora Batophora occidentalis en S'Estany des Peix (Formentera)",ca:"BIOPRO2024-004: distribució i impacte de l'alga invasora Batophora occidentalis a S'Estany des Peix (Formentera)"},
+  {en:"Balearic Government. PI: Antoni Sureda",es:"Govern de les Illes Balears. IP: Antoni Sureda",ca:"Govern de les Illes Balears. IP: Antoni Sureda"},false,"47,500 €"],
+ ["2023–25",{en:"BIO006: monitoring the ectoparasite Scaphanocephalus sp. in wrasse species in Ibiza",es:"BIO006: seguimiento del ectoparásito Scaphanocephalus sp. en lábridos de Ibiza",ca:"BIO006: seguiment de l'ectoparàsit Scaphanocephalus sp. en làbrids d'Eivissa"},
+  {en:"Balearic Government. PI: Silvia Tejada",es:"Govern de les Illes Balears. IP: Silvia Tejada",ca:"Govern de les Illes Balears. IP: Silvia Tejada"},false,"33,800 €"],
+ ["2022–24",{en:"PRE-ENVIRONS Andalucía: obesogenic environments during a weight-loss intervention (PREDIMED-Plus)",es:"PRE-ENVIRONS Andalucía: entornos obesogénicos durante una intervención para la pérdida de peso (PREDIMED-Plus)",ca:"PRE-ENVIRONS Andalucía: entorns obesogènics durant una intervenció per a la pèrdua de pes (PREDIMED-Plus)"},
+  {en:"Junta de Andalucía (PI-0067-2022). PI: Antoni Colom",es:"Junta de Andalucía (PI-0067-2022). IP: Antoni Colom",ca:"Junta de Andalucía (PI-0067-2022). IP: Antoni Colom"},false,"94,300 €"],
+ ["2022–23",{en:"EC-InterDis: Early Career Summer School for Interdisciplinary Ocean Transformation",es:"EC-InterDis: escuela de verano para investigadores jóvenes sobre transformación oceánica interdisciplinar",ca:"EC-InterDis: escola d'estiu per a investigadors joves sobre transformació oceànica interdisciplinària"},
+  {en:"EuroMarine Network. PI: Daniel Ottmann (DTU)",es:"Red EuroMarine. IP: Daniel Ottmann (DTU)",ca:"Xarxa EuroMarine. IP: Daniel Ottmann (DTU)"},false,"25,000 €"],
+ ["2018–22",{en:"Plastic Busters MPAs: preserving biodiversity from plastics in Mediterranean Marine Protected Areas",es:"Plastic Busters MPAs: proteger la biodiversidad frente a los plásticos en las Áreas Marinas Protegidas del Mediterráneo",ca:"Plastic Busters MPAs: protegir la biodiversitat davant els plàstics a les Àrees Marines Protegides del Mediterrani"},
+  {en:"Interreg Mediterranean (EU). 15 partners in 6 countries",es:"Interreg Mediterráneo (UE). 15 socios en 6 países",ca:"Interreg Mediterrani (UE). 15 socis en 6 països"},false,"5,055,033 €"],
+ ["2019–20",{en:"AQUA-LIT: preventive measures for averting litter discards from the aquaculture industry",es:"AQUA-LIT: medidas preventivas para evitar el vertido de residuos de la acuicultura",ca:"AQUA-LIT: mesures preventives per evitar l'abocament de residus de l'aqüicultura"},
+  {en:"European Commission EASME / EMFF. PI: Mariana Mata Lara",es:"Comisión Europea EASME / FEMP. IP: Mariana Mata Lara",ca:"Comissió Europea EASME / FEMP. IP: Mariana Mata Lara"},false,"587,250 €"],
+ ["2019–20",{en:"MIREIA: marine litter signatures in synthetic aperture radar images",es:"MIREIA: firmas de basura marina en imágenes de radar de apertura sintética",ca:"MIREIA: signatures de fems marins en imatges de radar d'obertura sintètica"},
+  {en:"European Space Agency. PI: Laia Romero",es:"Agencia Espacial Europea. IP: Laia Romero",ca:"Agència Espacial Europea. IP: Laia Romero"},false,"147,721 €"],
+ ["2018–20",{en:"ACUIPLASTIC: aquaculture-derived plastics, impacts and effects in marine food webs",es:"ACUIPLASTIC: plásticos derivados de la acuicultura, impactos y efectos en las redes tróficas marinas",ca:"ACUIPLASTIC: plàstics derivats de l'aqüicultura, impactes i efectes en les xarxes tròfiques marines"},
+  {en:"Spanish Ministry of Science (CTM2017-88332-R). PI: Salud Deudero",es:"Ministerio de Ciencia (CTM2017-88332-R). IP: Salud Deudero",ca:"Ministeri de Ciència (CTM2017-88332-R). IP: Salud Deudero"},false,"137,000 €"],
+ ["2016",{en:"Distribution and characterisation of macro- and microplastics in the Mediterranean Sea",es:"Distribución y caracterización de los macroplásticos y microplásticos en el mar Mediterráneo",ca:"Distribució i caracterització dels macroplàstics i microplàstics a la mar Mediterrània"},
+  {en:"Balearic Government. PI: Salud Deudero",es:"Govern de les Illes Balears. IP: Salud Deudero",ca:"Govern de les Illes Balears. IP: Salud Deudero"},false,"7,120 €"],
+ ["2012–16",{en:"COCONET: towards coast-to-coast networks of marine protected areas, coupled with sea-based wind energy potential",es:"COCONET: hacia redes de áreas marinas protegidas de costa a costa, junto con el potencial de energía eólica marina",ca:"COCONET: cap a xarxes d'àrees marines protegides de costa a costa, juntament amb el potencial d'energia eòlica marina"},
+  {en:"EU Seventh Framework Programme (287844). PI: Ferdinando Boero",es:"VII Programa Marco de la UE (287844). IP: Ferdinando Boero",ca:"VII Programa Marc de la UE (287844). IP: Ferdinando Boero"},false,""]
+];
+
+const GRANTS = [
+ ["2025",{en:"Vicenç Mut postdoctoral contract",es:"Contrato posdoctoral Vicenç Mut",ca:"Contracte postdoctoral Vicenç Mut"},{en:"Balearic Government, University of the Balearic Islands",es:"Govern de les Illes Balears, Universitat de les Illes Balears",ca:"Govern de les Illes Balears, Universitat de les Illes Balears"}],
+ ["2022",{en:"José Castillejo mobility grant",es:"Ayuda de movilidad José Castillejo",ca:"Ajut de mobilitat José Castillejo"},{en:"Spanish Ministry, CAS22/00410. 9,758 €",es:"Ministerio, CAS22/00410. 9.758 €",ca:"Ministeri, CAS22/00410. 9.758 €"}],
+ ["2021",{en:"Juan de la Cierva-Formación postdoctoral fellowship",es:"Contrato posdoctoral Juan de la Cierva-Formación",ca:"Contracte postdoctoral Juan de la Cierva-Formación"},{en:"Spanish Ministry of Science, FJC2021-047606-I. 64,800 €",es:"Ministerio de Ciencia, FJC2021-047606-I. 64.800 €",ca:"Ministeri de Ciència, FJC2021-047606-I. 64.800 €"}],
+ ["2021",{en:"Margalida Comas postdoctoral fellowship",es:"Contrato posdoctoral Margalida Comas",ca:"Contracte postdoctoral Margalida Comas"},{en:"Balearic Government and European Social Fund, PD/028/2021",es:"Govern de les Illes Balears y Fondo Social Europeo, PD/028/2021",ca:"Govern de les Illes Balears i Fons Social Europeu, PD/028/2021"}],
+ ["2016",{en:"FPI predoctoral fellowship",es:"Beca predoctoral FPI",ca:"Beca predoctoral FPI"},{en:"Balearic Government and European Social Fund",es:"Govern de les Illes Balears y Fondo Social Europeo",ca:"Govern de les Illes Balears i Fons Social Europeu"}],
+ ["2017",{en:"FPI mobility grant",es:"Ayuda de movilidad FPI",ca:"Ajut de mobilitat FPI"},{en:"Balearic Government. 3,000 €",es:"Govern de les Illes Balears. 3.000 €",ca:"Govern de les Illes Balears. 3.000 €"}],
+ ["2016",{en:"Mobility grant for young researchers",es:"Ayuda de movilidad para jóvenes investigadores",ca:"Ajut de mobilitat per a joves investigadors"},{en:"UIB and Obra Social \"la Caixa\". 4,000 €",es:"UIB y Obra Social \"la Caixa\". 4.000 €",ca:"UIB i Obra Social \"la Caixa\". 4.000 €"}],
+ ["2015",{en:"Santander CRUE-CEPYME internship grant",es:"Beca de prácticas Santander CRUE-CEPYME",ca:"Beca de pràctiques Santander CRUE-CEPYME"},{en:"SOCIB",es:"SOCIB",ca:"SOCIB"}],
+ ["2015",{en:"TUO graduate employment grant",es:"Beca TUO, titulados universitarios en el empleo",ca:"Beca TUO, titulats universitaris en l'ocupació"},{en:"SOCIB / FUEIB",es:"SOCIB / FUEIB",ca:"SOCIB / FUEIB"}],
+ ["2015",{en:"EUROFLEETS2 training programme",es:"Programa de formación EUROFLEETS2",ca:"Programa de formació EUROFLEETS2"},{en:"Applied oceanography cruise, Norwegian Sea",es:"Campaña de oceanografía aplicada, mar de Noruega",ca:"Campanya d'oceanografia aplicada, mar de Noruega"}]
+];
+
+const STUDENTS = [
+ ["2021","Llucia García Moll",{en:"MSc Chemical Science and Technology internship, UIB. Microplastic characterisation by FTIR",es:"Prácticas del Máster en Ciencia y Tecnología Química, UIB. Caracterización de microplásticos por FTIR",ca:"Pràctiques del Màster en Ciència i Tecnologia Química, UIB. Caracterització de microplàstics per FTIR"}],
+ ["2021","Maria Pau García Moll",{en:"MSc Chemical Science and Technology internship, UIB. Microplastics in MPA sediments",es:"Prácticas del Máster en Ciencia y Tecnología Química, UIB. Microplásticos en sedimentos de AMP",ca:"Pràctiques del Màster en Ciència i Tecnologia Química, UIB. Microplàstics en sediments d'AMP"}],
+ ["2020","Valentina Fagiano",{en:"MSc Marine Ecology, UIB. Neustonic plastics and zooplankton in Cabrera",es:"Máster en Ecología Marina, UIB. Plásticos neustónicos y zooplancton en Cabrera",ca:"Màster en Ecologia Marina, UIB. Plàstics neustònics i zooplàncton a Cabrera"}],
+ ["2020","Diane Ryfer",{en:"MSc Ecotoxicology, University of Bordeaux. Microplastics in coastal MPA sediments",es:"Máster en Ecotoxicología, Universidad de Burdeos. Microplásticos en sedimentos costeros de AMP",ca:"Màster en Ecotoxicologia, Universitat de Bordeus. Microplàstics en sediments costaners d'AMP"}],
+ ["2020","Vincent Ripollès",{en:"MSc, University of Bordeaux. Stable isotopes and plastic ingestion in aquaculture",es:"Máster, Universidad de Burdeos. Isótopos estables e ingestión de plástico en acuicultura",ca:"Màster, Universitat de Bordeus. Isòtops estables i ingestió de plàstic en aqüicultura"}],
+ ["2020","María Rubio Bernal",{en:"MSc Marine Biology and Ecology, UIB. Mussel responses to plastic ingestion",es:"Máster en Biología y Ecología Marina, UIB. Respuestas del mejillón a la ingestión de plástico",ca:"Màster en Biologia i Ecologia Marina, UIB. Respostes del musclo a la ingestió de plàstic"}],
+ ["2020","Patricia Villanueva Almagro",{en:"MSc Marine Ecology, UIB. Drivers of litter along the Spanish coast",es:"Máster en Ecología Marina, UIB. Factores que explican la basura en la costa española",ca:"Màster en Ecologia Marina, UIB. Factors que expliquen els fems a la costa espanyola"}],
+ ["2019","Joan Jordi Company Vera",{en:"MSc Oceanography, University of Barcelona. Oxidative stress in sea bream fed plastics",es:"Máster en Oceanografía, Universidad de Barcelona. Estrés oxidativo en doradas alimentadas con plástico",ca:"Màster en Oceanografia, Universitat de Barcelona. Estrès oxidatiu en orades alimentades amb plàstic"}],
+ ["2017","Beatriz Ríos-Fuster",{en:"MSc Oceanography, University of Barcelona. Plastic ingestion in Mediterranean species",es:"Máster en Oceanografía, Universidad de Barcelona. Ingestión de plástico en especies mediterráneas",ca:"Màster en Oceanografia, Universitat de Barcelona. Ingestió de plàstic en espècies mediterrànies"}],
+ ["2017","Marina Barrio",{en:"BSc Marine Sciences, University of Las Palmas. Microplastics in Scomber colias",es:"Grado en Ciencias del Mar, Universidad de Las Palmas. Microplásticos en Scomber colias",ca:"Grau en Ciències del Mar, Universitat de Las Palmes. Microplàstics en Scomber colias"}]
+];
+
+// Headline numbers on the home page (from the CV, updated 27/09/2026)
+const FACTS = [
+ ["57",{en:"SCI-indexed articles",es:"artículos indexados en SCI",ca:"articles indexats a SCI"}],
+ ["3,000+",{en:"citations",es:"citas",ca:"citacions"}],
+ ["28",{en:"h-index",es:"índice h",ca:"índex h"}],
+ ["12",{en:"funded projects, 4 as PI",es:"proyectos financiados, 4 como IP",ca:"projectes finançats, 4 com a IP"}],
+ ["200k €+",{en:"competitive funding secured",es:"en financiación competitiva",ca:"en finançament competitiu"}]
+];
+
 const PUBS = [
  [2026,"invasive","Invasive species management: the role of recreational fishing in managing Callinectes sapidus in the Balearic Islands, Spain","Perelló, E., Terrassa, J., Sureda, A., Pinya, S., Compa, M.","Estuarine, Coastal and Shelf Science 328, 109610","10.1016/j.ecss.2025.109610","l"],
+ [2025,"ingest","Physiological responses to microplastic ingestion in the peacock wrasse Symphodus tinca from Ibiza, Spain","Sureda, A., Quetglas-Llabrés, M.M., Compa, M., Cohen-Sánchez, A., Box, A., Gil, L., Pinya, S., Tejada, S.","Environments 12(12)","",""],
  [2025,"invasive","Human activity as a growing threat to marine ecosystems: plastic and temperature effects on the sponge Sarcotragus spinosulus","Lombardo, J., Ribas-Taberner, M.M., Quetglas-Llabrés, M.M., Pinya, S., Gil, L., Tejada, S., Sureda, A., Compa, M.","Toxics 13(1), 66","10.3390/toxics13010066","l"],
  [2025,"ingest","Presence and potential effect of microplastics associated with anthropic activity in two benthic fishes, Serranus scriba and Lithognathus mormyrus","Cohen-Sánchez, A., Sanz, J.A., Compa, M., Quetglas-Llabrés, M.M., Ribas-Taberner, M.M., Gil, L., Tejada, S., Pinya, S., Sureda, A.","Fishes 10, 323","10.3390/fishes10070323",""],
  [2025,"ingest","Microplastic pollution and its physiological effects on the top fish predator Dentex dentex from the western Mediterranean","Cohen-Sánchez, A., Solomando, A., Compa, M., Box, A., Montero, I., Tejada, S., Pinya, S., Quetglas-Llabrés, M.M., Sureda, A.","Microplastics 4, 28","10.3390/microplastics4020028",""],
@@ -20,17 +112,20 @@ const PUBS = [
  [2025,"ingest","Microplastic filtering and its physiological effects on the Mediterranean bath sponge Spongia officinalis (Porifera, Demospongiae)","Aguilo-Arce, J., Compa, M., Corriero, G., Mastrodonato, M., Savino, I., Semeraro, D., Sureda, A., Trani, R., Longo, C.","Marine Pollution Bulletin 215, 117849","10.1016/j.marpolbul.2025.117849",""],
  [2025,"invasive","Physiological stress induced by an invasive filamentous green alga on a native sponge from a coastal Mediterranean lagoon (Balearic Islands)","Lombardo, J., Aguilo-Arce, J., Tejada, S., Gil, L., Pinya, S., Ferriol, P., Sureda, A., Compa, M.","Journal of Chemical Ecology 51, 105","10.1007/s10886-025-01652-9","l"],
  [2025,"invasive","Oxidative stress response in native algae exposed to the invasive species Batophora occidentalis in S'Estany des Peix, Formentera (Balearic Islands)","Lombardo, J., Tejada, S., Compa, M., Forteza, V., Gil, L., Pinya, S., Sureda, A.","Frontiers in Marine Science 12, 1586402","10.3389/fmars.2025.1586402",""],
+ [2024,"litter","Posidonia oceanica egagropiles: good indicators for plastic pollution in coastal areas?","Alomar, C., Compa, M., Fagiano, V., Concato, M., Deudero, S.","Regional Studies in Marine Science, 103653","10.1016/j.rsma.2024.103653",""],
  [2024,"risk","Assessing the unseen: copepods as extensive microplastic reservoirs in global oceans. A review and meta-analysis","Fagiano, V., Compa, M., Alomar, C., Deudero, S.","Environmental Pollution, 124092","",""],
- [2024,"risk","A meta-analysis of potential biomarkers associated with microplastic ingestion in marine fish","Compa, M., Capó, X., Alomar, C., Deudero, S., Sureda, A.","Environmental Toxicology and Pharmacology, 104414","","f"],
+ [2024,"risk","A meta-analysis of potential biomarkers associated with microplastic ingestion in marine fish","Compa, M., Capó, X., Alomar, C., Deudero, S., Sureda, A.","Environmental Toxicology and Pharmacology, 104414","10.1016/j.etap.2024.104414","f"],
  [2024,"ingest","Plastic webs, the new food: dynamics of microplastics in a Mediterranean food web, key species as pollution sources and receptors","Olmo-Gilabert, R., Fagiano, V., Alomar, C., Rios-Fuster, B., Compa, M., Deudero, S.","Science of the Total Environment, 170719","",""],
  [2024,"ingest","Presence and potential effects of microplastics in the digestive tract of two small species of shark from the Balearic Islands","Torres, S., Compa, M., Box, A., Pinya, S., Sureda, A.","Fishes 9(2), 55","10.3390/fishes9020055",""],
+ [2023,"risk","Mapping microplastic overlap between marine compartments and biodiversity in a Mediterranean marine protected area","Compa, M., Alomar, C., Deudero, S.","Science of the Total Environment, 164584","","f"],
  [2023,"invasive","Ingestion of microplastics and microfibers by the invasive blue crab Callinectes sapidus (Rathbun 1896) in the Balearic Islands, Spain","Compa, M., Perelló, E., Box, A., Colomar, V., Pinya, S., Sureda, A.","Environmental Science and Pollution Research","","f"],
  [2023,"litter","Plastitar in the Mediterranean Sea: new records and the first geochemical characterization of these novel formations","Saliu, F., Compa, M., Becchi, A., Lasagni, M., Collina, E., Liconti, A., Suma, E., Deudero, S., Grech, D., Suaria, G.","Marine Pollution Bulletin 196, 115583","",""],
  [2023,"litter","Sea surface surveys for microplastic and floating marine macro litter items in coastal waters of Cabrera Archipelago Maritime Terrestrial National Park","Compa, M., Alomar, C., Rios-Fuster, B., Fagiano, V., Deudero, S.","Environmental Science and Pollution Research","","f"],
  [2023,"litter","Breaking the paradigm: marine sediments hold two-fold microplastics than sea surface waters and are dominated by fibers","Fagiano, V., Compa, M., Alomar, C., Rios-Fuster, B., Morató, M., Capó, X., Deudero, S.","Science of the Total Environment 858, 159722","10.1016/j.scitotenv.2022.159722",""],
  [2023,"litter","Stranded and floating marine debris detected along the coastline of Cabrera National Park (Balearic Islands)","Rios-Fuster, B., Compa, M., Alomar, C., Deudero, S.","Marine Pollution Bulletin 194, 115288","",""],
  [2023,"litter","Are seafloor habitats influencing the distribution of microplastics in coastal sediments of a Marine Protected Area?","Rios-Fuster, B., Compa, M., Alomar, C., Morató, M., Ryfer, D., Villalonga, M., Deudero, S.","Environmental Science and Pollution Research","10.1007/s11356-023-25536-1",""],
- [2023,"litter","The hyperbenthic environment: a forgotten habitat for plastic pollution","Fagiano, V., Compa, M., Alomar, C., Morató, M., Deudero, S.","Marine Pollution Bulletin 194, 115291","",""],
+ [2023,"litter","The hyperbenthic environment: a forgotten habitat for plastic pollution","Fagiano, V., Compa, M., Alomar, C., Morató, M., Deudero, S.","Marine Pollution Bulletin 194, 115291","10.1016/j.marpolbul.2023.115291",""],
+ [2022,"ingest","Quantification of differential tissue biomarker responses to microplastic ingestion and plasticizer bioaccumulation in aquaculture reared sea bream Sparus aurata","Capó, X., Alomar, C., Compa, M., Solé, M., Sanahuja, I., Soliz Rojas, D.L., Paniagua González, G., Garcinuño Martínez, R.M., Deudero, S.","Environmental Research 211, 113063","10.1016/j.envres.2022.113063",""],
  [2022,"litter","Spatial distribution of macro- and micro-litter items along rocky and sandy beaches of a Marine Protected Area in the western Mediterranean Sea","Compa, M., Alomar, C., Morató, M., Álvarez, E., Deudero, S.","Marine Pollution Bulletin 178, 113520","10.1016/j.marpolbul.2022.113520","f"],
  [2022,"litter","Are Marine Protected Areas seafloors sinks for marine litter? Composition and spatial distribution in Cabrera National Park","Compa, M., Alomar, C., Morató, M., Álvarez, E., Deudero, S.","Science of the Total Environment, 152915","10.1016/j.scitotenv.2022.152915","f"],
  [2022,"litter","Marine plastics in Mediterranean islands: evaluating the distribution and composition of plastic pollution in the surface waters along four islands of the western basin","Fagiano, V., Compa, M., Alomar, C., García-Marcos, K., Deudero, S.","Environmental Pollution 305, 119268","10.1016/j.envpol.2022.119268",""],
@@ -60,51 +155,15 @@ const PUBS = [
  [2019,"litter","Spatio-temporal monitoring of coastal floating marine debris in the Balearic Islands from sea-cleaning boats","Compa, M., March, D., Deudero, S.","Marine Pollution Bulletin 141, 205–214","10.1016/j.marpolbul.2019.02.027","f"],
  [2019,"risk","Multiple approaches to assessing the risk posed by anthropogenic plastic debris","Hardesty, B.D., Polidoro, B., Compa, M., Shim, W.J., Widianarko, B., Wilcox, C.","Marine Pollution Bulletin 141, 188–193","10.1016/j.marpolbul.2019.02.017",""],
  [2019,"other","Mediterranean built environment and precipitation as modulator factors on physical activity in obese mid-age and old-age adults with metabolic syndrome: cross-sectional study","Colom, A., Ruiz, M., Wärnberg, J., Compa, M., Muncunill, J., Barón-López, F.J., Benavente-Marín, J.C., et al.","International Journal of Environmental Research and Public Health 16(5), 854","10.3390/ijerph16050854",""],
- [2019,"ingest","Anthropogenic particles ingestion in fish species from two areas of the western Mediterranean Sea","Rios-Fuster, B., Alomar, C., Compa, M., Guijarro, B., Deudero, S.","Marine Pollution Bulletin 144, 325–333","",""],
+ [2019,"ingest","Anthropogenic particles ingestion in fish species from two areas of the western Mediterranean Sea","Rios-Fuster, B., Alomar, C., Compa, M., Guijarro, B., Deudero, S.","Marine Pollution Bulletin 144, 325–333","10.1016/j.marpolbul.2019.04.064",""],
  [2018,"ingest","Bioindicators for monitoring marine litter ingestion and its impacts on Mediterranean biodiversity","Fossi, M.C., Pedà, C., Compa, M., Tsangaris, C., Alomar, C., Claro, F., Baini, M.","Environmental Pollution 237, 1023–1040","10.1016/j.envpol.2017.11.019",""],
  [2018,"ingest","Ingestion of microplastics and natural fibres in Sardina pilchardus and Engraulis encrasicolus along the Spanish Mediterranean coast","Compa, M., Ventero, A., Iglesias, M., Deudero, S.","Marine Pollution Bulletin 128, 89–96","10.1016/j.marpolbul.2018.01.009","f"],
  [2018,"other","Association between access to public open spaces and physical activity in a Mediterranean population at high cardiovascular risk","Colom, A., Fiol, M., Ruiz, M., Compa, M., Morey, M., Moñino, M., Romaguera, D.","International Journal of Environmental Research and Public Health 15(6), 1285","10.3390/ijerph15061285",""]
 ];
-const OTHER = {name:"Other collaborations", color:"#8A9AA0"};
-const FUND = [
- ["2024–25","MARHEAT: monitoring the effects of marine heatwaves on benthic diversity in the Balearic Islands","Iberostar Foundation / FUEIB. Universitat de les Illes Balears",true,"12,000 €"],
- ["2023–24","The impacts of marine heatwaves on marine sponges: an ecological and biomarker evaluation","Institut Menorquí d'Estudis (Exp. I0015-2023-000004)",true,"4,179 €"],
- ["2023–24","SOCAP: monitoring marine heatwave impacts through the pathogen Vibrio spp.","Reserva de Biosfera de Menorca",true,"5,000 €"],
- ["2024–25","BIOPRO2024-004: distribution and impact of the invasive alga Batophora occidentalis in S'Estany des Peix (Formentera)","Govern de les Illes Balears. PI: Antoni Sureda",false,"47,500 €"],
- ["2023–25","BIO006: monitoring the ectoparasite Scaphanocephalus sp. in wrasse species in Ibiza","Conselleria de Fons Europeus, Universitat i Cultura. PI: Silvia Tejada",false,"33,800 €"],
- ["2022–23","PREDIMED-PLUS Environs Andalucía: obesogenic environments during a weight-loss intervention","Junta de Andalucía, IBIMA Málaga. PIs: Antoni Colom, Julia Wärnberg",false,"94,300 €"],
- ["2022","EC-InterDis: Early Career Summer School for Interdisciplinary Ocean Transformation","EuroMarine Network. PI: Daniel Ottmann (DTU)",false,"25,000 €"],
- ["2018–22","Plastic Busters MPAs: preserving biodiversity from plastics in Mediterranean Marine Protected Areas","Interreg Mediterranean (EU). 15 partners in 6 countries. PI: Teresa Romeo",false,"5,055,033 €"],
- ["2019–22","AQUA-LIT: preventive measures for averting litter discards from the aquaculture industry","European Commission EASME / EMFF. PI: Mariana Mata",false,"587,250 €"],
- ["2019–20","MIREIA: marine litter signatures in synthetic aperture radar images","European Space Agency. PIs: Laia Romero, Salud Deudero",false,"147,721 €"],
- ["2018–20","ACUIPLASTIC: aquaculture-derived plastics, impacts and effects in marine food webs","Spanish Ministry of Science (CTM2017-88332-R). PI: Salud Deudero",false,"137,000 €"],
- ["2016","Distribution and characterisation of macro- and microplastics in the Mediterranean Sea","Govern de les Illes Balears. PI: Salud Deudero",false,"7,120 €"]
-];
-const GRANTS = [
- ["2022","José Castillejo mobility grant","Spanish Ministry, CAS22/00410. 9,758 €"],
- ["2021","Juan de la Cierva-Formación postdoctoral fellowship","Spanish Ministry of Science, FJC2021-047606-I. 64,800 €"],
- ["2021","Margalida Comas postdoctoral fellowship","Balearic Government and European Social Fund, PD/028/2021. 60,000 €"],
- ["2016","FPI predoctoral fellowship","Balearic Government and European Social Fund. 48,000 €"],
- ["2017","FPI mobility grant","Balearic Government. 3,000 €"],
- ["2016","Mobility grant for young researchers","Obra Social \"la Caixa\". 4,000 €"],
- ["2015","Banco Santander–UIB grant",""],
- ["2015","TUO grant","Fundació Universitat-Empresa de les Illes Balears (FUEIB)"],
- ["2015","EUROFLEETS2 training programme","Applied oceanography cruise, Norwegian Sea"]
-];
-const STUDENTS = [
- ["2021","Llucia García Moll","MSc Chemical Science and Technology internship, UIB. Microplastic characterisation by FTIR"],
- ["2021","Maria Pau García Moll","MSc Chemical Science and Technology internship, UIB. Microplastics in MPA sediments"],
- ["2020","Valentina Fagiano","MSc Marine Ecology, UIB. Neustonic plastics and zooplankton in Cabrera"],
- ["2020","Diane Ryfer","MSc Ecotoxicology, University of Bordeaux. Microplastics in coastal MPA sediments"],
- ["2020","Vincent Ripollès","MSc, University of Bordeaux. Stable isotopes and plastic ingestion in aquaculture"],
- ["2020","María Rubio Bernal","MSc Marine Biology and Ecology, UIB. Mussel responses to plastic ingestion"],
- ["2020","Patricia Villanueva Almagro","MSc Marine Ecology, UIB. Drivers of litter along the Spanish coast"],
- ["2019","Joan Jordi Company Vera","MSc Oceanography, University of Barcelona. Oxidative stress in sea bream fed plastics"],
- ["2017","Beatriz Ríos-Fuster","MSc Oceanography, University of Barcelona. Plastic ingestion in Mediterranean species"],
- ["2017","Marina Barrio","BSc Marine Sciences, University of Las Palmas. Microplastics in Scomber colias"]
-];
-// year, title, venue, format, scope(i/n)
 const TALKS = [
+ [2025,"Combined effects of plastics and rising temperatures on the Mediterranean sponge Sarcotragus spinosulus","VII International Turkic World Congress on Science and Engineering, Prishtina, Kosovo","Invited talk","i"],
+ [2025,"Invasive green alga Batophora occidentalis in the Mediterranean: ecological impact and physiological stress on Cystoseira compressa","VII Congreso Nacional sobre EEI / II Congreso Ibérico sobre EEI, Murcia","Poster","n"],
+ [2025,"Incrementar la motivació i implicació dels alumnes mitjançant un projecte de recerca integrant seminaris i pràctiques de laboratori","VII Jornades d'Experiències Docents, UIB, Palma","Oral","n"],
  [2025,"Story mapping: monitoring pathogenic Vibrio species through marine bioindicators","X Congreso de Comunicación Social de la Ciencia, Palma","Poster","n"],
  [2025,"Sponges as sentinels of coastal water quality and microplastic contamination in Mallorca","IEEE MetroSea 2025, Genoa, Italy","Oral","i"],
  [2025,"Tracking anthropogenic particles with sea urchins: Paracentrotus lividus as a bioindicator","IEEE MetroSea 2025, Genoa, Italy","Oral","i"],
@@ -117,9 +176,12 @@ const TALKS = [
  [2025,"GBIF as a biodiversity tool: potential and risks of unfiltered use","IX Jornades de Medi Ambient de les Illes Balears","Oral","n"],
  [2025,"Temporal changes in NDVI around children's homes in the Balearic Islands","IX Jornades de Medi Ambient de les Illes Balears","Poster","n"],
  [2025,"Groundwater and children's exposure: residential environments","IX Jornades de Medi Ambient de les Illes Balears","Poster","n"],
+ [2024,"The role of copepods as microplastic reservoir across global oceans: insights from a comprehensive review and meta-analysis","CIESM 2024 Congress, Italy","Oral","i"],
+ [2024,"Unveiling historical suspended sediment concentrations: tracing microplastics and microfibers in a Mediterranean lowland river","MICRO 2024, Lanzarote","Poster","i"],
+ [2024,"The invasive crab Percnon gibbesi as a bioindicator of anthropogenic pollution: oxidative stress, immune and toxicological biomarkers","International Symposium on Marine Sciences (ISMS 2024), València","Poster","i"],
  [2024,"Mapping the impacts of marine litter on coastal ecosystems","10th Symposium Monitoring of Mediterranean Coastal Areas, Livorno, Italy","Poster","i"],
  [2024,"Copepods as potential microplastic reservoirs in global oceans","ICES–PICES 7th Zooplankton Production Symposium, Hobart, Australia","Oral","i"],
- [2023,"A meta-analysis of potential biomarkers linked to microplastic consumption in marine fish","ICES Annual Science Conference, Bilbao","Oral","i"],
+ [2023,"A meta-analysis of potential biomarkers linked to microplastic consumption in marine fish","ICES Annual Science Conference, Bilbao","Poster","i"],
  [2022,"Floating plastic pollution in Cabrera Archipelago National Park","7th International Marine Debris Conference, Republic of Korea","Oral","i"],
  [2022,"Evaluating microplastic loads in an integrated multi-trophic aquaculture system","7th International Marine Debris Conference, Republic of Korea","Oral","i"],
  [2022,"Plastics in surface waters of four western Mediterranean islands","7th International Marine Debris Conference, Republic of Korea","Oral","i"],

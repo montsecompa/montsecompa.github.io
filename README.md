@@ -1,24 +1,28 @@
 # Montserrat Compa Ferrer: personal academic website
 
-A multi-page static website with no build step, hosted on GitHub Pages. Each section has its own page (`about.html`, `research.html`, `publications.html`, `funding.html`, `career.html`, `talks.html`, `outreach.html`, `contact.html`); styling is in `style.css`, the lists are in `data.js`, and `site.js` renders them.
+Live at **https://montsecompa.github.io**, in English (site root), Spanish (`/es/`) and Catalan (`/ca/`). The language switch in the header opens the same page in the other language, and the site remembers the visitor's choice.
 
-## Publish it
+It is a static site with no framework, hosted on GitHub Pages.
 
-1. On GitHub, create a new public repository named **`<your-username>.github.io`**.
-2. Upload every file in this folder (including `.nojekyll`) to the repository root (Add file → Upload files → Commit).
-3. Go to **Settings → Pages**, set *Source* to "Deploy from a branch", branch `main`, folder `/ (root)`, and save.
-4. After a minute the site is live at `https://<your-username>.github.io`.
+| File | What it holds |
+|---|---|
+| `data.js` | All lists: publications, projects, grants, students, talks, research themes and the headline numbers. Text written as `{en:…, es:…, ca:…}` is shown in the page's language. |
+| `build.py` | All page text in the three languages (About, Career, Outreach…). Running it writes the 27 HTML pages. |
+| `site.js` | Draws the lists and holds the short interface labels in each language. |
+| `style.css` | Styling. |
+| `assets/sea.svg` | The home-page illustration (labels are filled in per language). |
 
 ## Update it
 
-All lists are plain JavaScript arrays in `data.js`:
+**A new publication, project, talk, grant or student:** add a row to the matching array in `data.js` and commit. No rebuild is needed. Publication and talk titles stay in the language they were published in, so they are written once.
 
 | What | Array |
 |---|---|
 | Publications | `PUBS` (year, theme, title, authors, journal, DOI, role `f`/`l`) |
-| Projects and budgets | `FUND` (years, name, funder, PI true/false, budget) |
+| Projects and budgets | `FUND` (years, name, funder and PI, led by me true/false, budget) |
 | Fellowships and grants | `GRANTS` |
 | Students | `STUDENTS` |
-| Conference presentations | `TALKS` |
+| Conference presentations | `TALKS` (year, title, venue, format, `i` international / `n` national) |
+| Home-page numbers | `FACTS` |
 
-Add a new row, commit, and GitHub Pages republishes automatically. The headline numbers on the home page (citations, h-index) are at the top of `site.js`.
+**Page text (biography, career timeline, education, contact…):** edit it in `build.py` for each language, then run `python3 build.py` and commit everything.
